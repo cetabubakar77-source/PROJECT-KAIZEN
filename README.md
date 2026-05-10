@@ -1,6 +1,6 @@
 # 10th MH Board Curriculum Study App
 
-## Overview   
+## Overview        
 
 This Learning Dashboard now includes a complete **10th MH (Maharashtra) Board Curriculum** with subject-wise topic breakdown, marks allocation, and importance indicators.
 
