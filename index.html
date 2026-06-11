@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="knowledge-base.js"></script>
+</head>
+<body>
+    <!-- Onboarding Overlay -->
+    <div id="onboarding" class="onboarding-overlay">
+        <div class="onboarding-card" id="step-state">
+            <h2>Welcome!</h2>
+            <p>Let's personalize your experience.</p>
+            <div class="input-group">
+                <label for="state-select">Choose your Board</label>
+                <select id="state-select" class="custom-select">
+                    <option value="" disabled selected>Choose a board...</option>
+                    <option value="CBSE Board">CBSE Board</option>
+                    <option value="MH Board" disabled><span>MH Board — <span style="color:#f59e0b;font-size:11px;">Coming Soon</span></span></option>
+                </select>
+            </div>
+            <button id="next-to-class" class="primary-btn" disabled>Continue</button>
+        </div>
+
+    
+
+        <div class="onboarding-card hidden" id="step-class">
+            <h2>Almost there!</h2>
+            <p>Which class are you in?</p>
+            <div class="class-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <button class="class-btn" data-class="10">10</button>
+                <button class="class-btn disabled" data-class="11" disabled>
+                    11
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </button>
+                <button class="class-btn disabled" data-class="12" disabled>
+                    12
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </button>
+            </div>
+            <button id="finish-onboarding" class="primary-btn" disabled>Let's Go!</button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container" id="main-app" style="display: none;">
+        <!-- HOME VIEW -->
+        <div id="home-view">
+            <header>
+                <i class="ph ph-list menu-icon"></i>
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="ph ph-bell"></i>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="avatar">A</div>
+                </div>
+            </header>
+
+           <section class="greeting">
+    <p class="kaizen-shine">KAIZEN</p>
+    <h1>Good Morning,<br><span class="name" id="display-name"><i class="ph-fill ph-sparkle"></i></span></h1>
+    <p>Let's make today productive.</p>
+</section>
+
+            <section class="banner">
+                <div class="banner-inner">
+                    <div class="banner-left">
+                        <div class="icon-box">
+                            <i class="ph-fill ph-calendar-blank"></i>
+                        </div>
+                        <div class="banner-text">
+                            <p class="subtitle" id="board-exam-label">Board Exam 2027</p>
+                            <div class="days">
+                                <span class="number" id="board-exam-days-left">0</span>
+                                <span class="unit">Days Left</span>
+                            </div>
+                            <p class="motivational">Keep going, you've got this! <span class="emoji">💪</span></p>
+                        </div>
+                    </div>
+                    <div class="banner-right">
+                        <div class="progress-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                <path class="circle" id="overall-syllabus-circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                <text x="18" y="15" class="percentage"><tspan id="overall-syllabus-percentage">0</tspan><tspan class="percent-sign">%</tspan></text>
+                                <text x="18" y="21" class="progress-label">Syllabus</text>
+                                <text x="18" y="25" class="progress-label">Completed</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="quick-access">
+                <h2>QUICK ACCESS</h2>
+                <div class="grid">
+                    <div class="card" id="quick-access-subjects">
+                        <i class="ph ph-book-open subjects-icon"></i>
+                        <h3>SUBJECTS</h3>
+                        <p>Explore all subjects</p>
+                    </div>
+                    <div class="card" id="quick-access-curriculum">
+                    <i class="ph ph-brain subjects-icon" style="color: #A6FF1F;"></i>
+                    <h3>SMART STUDY</h3>
+                    <p>Chapter strategy</p>
+                    </div>
+                    <div class="card" id="quick-access-notes">
+                        <i class="ph ph-notebook tests-icon"></i>
+                        <h3>NOTES</h3>
+                        <p>Science notes</p>
+                    </div>
+                    <div class="card" id="quick-access-progress">
+                        <i class="ph ph-chart-bar progress-icon"></i>
+                        <h3>PROGRESS</h3>
+                        <p>Track your journey</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="continue-learning" id="continue-learning-section">
+                <h2>CONTINUE LEARNING</h2>
+                <div class="learning-card" id="continue-learning-card">
+                    <div class="learning-img-container">
+                        <img src="chemistry_beakers.png" alt="Continue Learning" class="learning-img" id="continue-learning-image">
+                    </div>
+                    <div class="learning-content">
+                        <div class="learning-header">
+                            <span class="subject" id="continue-learning-subject">SCIENCE</span>
+                            <i class="ph ph-dots-three-vertical"></i>
+                        </div>
+                        <h3 id="continue-learning-video-title">Chemical Reactions<br>and Equations</h3>
+                        <p class="chapter" id="continue-learning-chapter-meta">Chapter 1</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="fill" id="continue-learning-progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="learning-footer">
+                            <p class="completed" id="continue-learning-progress-text">0% Completed</p>
+                            <button class="play-btn"><i class="ph-fill ph-play"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="next-up">
+                <h2>NEXT UP FOR YOU</h2>
+                <div class="next-card">
+                    <div class="icon-circle">
+                        <i class="ph-fill ph-graduation-cap"></i>
+                    </div>
+                    <div class="next-info">
+                        <h3>Acids, Bases and Salts</h3>
+                        <p>Science &bull; Chapter 2 <span class="tag">Important</span></p>
+                    </div>
+                    <i class="ph ph-caret-right chevron"></i>
+                </div>
+            </section>
+
+      <section class="ai-homepage-section">
+    <h2>ARTIFICIAL INTELLIGENCE</h2>
+    <div class="ai-homepage-card" id="ai-homepage-card">
+        <div class="ai-homepage-card-inner">
+            <div class="ray"></div>
+            <div class="ai-icon-circle">
+                <i class="ph-fill ph-sparkle"></i>
+            </div>
+            <div class="ai-homepage-info">
+                <h3>Ask from AI</h3>
+                <p>Your personal exam coach </p>
+            </div>
+            <i class="ph ph-caret-right chevron"></i>
+        </div>
+    </div>
+</section>
+
+        </div>
+
+   
+
+        <!-- DYNAMIC VIEWS (content injected by JS modules) -->
+        <div id="subjects-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="chapters-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="chapter-detail-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="curriculum-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="progress-detail-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="profile-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="ai-view" style="display: none; flex-direction: column; height: calc(100vh - 0px); overflow: hidden;"></div>
+        <div id="notes-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="adaptive-view" style="display: none; padding-bottom: 24px;"></div>
+        <div id="tests-view" style="display: none; padding-bottom: 24px;"></div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div id="profile-tooltip" class="tooltip-popup">
+                Complete your profile
+                <div class="tooltip-arrow"></div>
+            </div>
+            <a href="#" class="nav-item active" id="nav-home">
+                <i class="ph-fill ph-house"></i>
+                <span>HOME</span>
+            </a>
+            <a href="#" class="nav-item" id="nav-subjects">
+                <i class="ph ph-book-open"></i>
+                <span>SUBJECTS</span>
+            </a>
+            <a href="#" class="nav-item" id="nav-notes">
+                <i class="ph ph-notebook"></i>
+                <span>NOTES</span>
+            </a>
+            <a href="#" class="nav-item" id="nav-adaptive">
+                <i class="ph ph-brain"></i>
+                <span>ADAPTIVE</span>
+            </a>
+            <a href="#" class="nav-item" id="nav-profile">
+                <i class="ph ph-user"></i>
+                <span>PROFILE</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="dot-spinner">
+            <div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div><div class="dot-spinner__dot"></div>
+        </div>
+    </div>
+
+    <!-- Firebase Module -->
+    <script type="module" src="app.js"></script>
+    <script type="module" src="chat-storage.js"></script>
+    <!-- Load modules in order (non-module for shared scope) -->
+    <script src="subjects.js"></script>
+    <script src="tests.js"></script>
+    <script src="progress.js"></script>
+    <script src="ai.js"></script>
+    <script src="pdf-data.js"></script>
+    <script src="notes.js"></script>
+    <script src="profile.js"></script>
+    <script src="smart-study.js"></script>
+    <script src="adaptive-engine.js"></script>
+    <script src="sync-adaptive.js"></script>
+    <script src="main.js"></script>
+    <script src="adaptive-view.js"></script>
+</body>
+</html>
